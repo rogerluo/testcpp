@@ -9,6 +9,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testAlgorithm", "testAlgori
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testSyntax", "testSyntax\testSyntax.vcxproj", "{4285AB79-2362-4B13-A916-FA087877A99A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testWWSAPI", "testWWSAPI\testWWSAPI.vcxproj", "{F36413EB-4E12-4ED7-8280-54B2B16121CE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testVSCoderCoverage", "testVSCoderCoverage\testVSCoderCoverage.vcxproj", "{EF54ABA0-4B92-4D5E-A457-2107C9762D65}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EAF17B59-803F-4B11-9B6F-B735D5E9E69A} = {EAF17B59-803F-4B11-9B6F-B735D5E9E69A}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testVSCodeCoverageDLL", "testVSCodeCoverageDLL\testVSCodeCoverageDLL.vcxproj", "{EAF17B59-803F-4B11-9B6F-B735D5E9E69A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -27,6 +36,18 @@ Global
 		{4285AB79-2362-4B13-A916-FA087877A99A}.Debug|Win32.Build.0 = Debug|Win32
 		{4285AB79-2362-4B13-A916-FA087877A99A}.Release|Win32.ActiveCfg = Release|Win32
 		{4285AB79-2362-4B13-A916-FA087877A99A}.Release|Win32.Build.0 = Release|Win32
+		{F36413EB-4E12-4ED7-8280-54B2B16121CE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F36413EB-4E12-4ED7-8280-54B2B16121CE}.Debug|Win32.Build.0 = Debug|Win32
+		{F36413EB-4E12-4ED7-8280-54B2B16121CE}.Release|Win32.ActiveCfg = Release|Win32
+		{F36413EB-4E12-4ED7-8280-54B2B16121CE}.Release|Win32.Build.0 = Release|Win32
+		{EF54ABA0-4B92-4D5E-A457-2107C9762D65}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EF54ABA0-4B92-4D5E-A457-2107C9762D65}.Debug|Win32.Build.0 = Debug|Win32
+		{EF54ABA0-4B92-4D5E-A457-2107C9762D65}.Release|Win32.ActiveCfg = Release|Win32
+		{EF54ABA0-4B92-4D5E-A457-2107C9762D65}.Release|Win32.Build.0 = Release|Win32
+		{EAF17B59-803F-4B11-9B6F-B735D5E9E69A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EAF17B59-803F-4B11-9B6F-B735D5E9E69A}.Debug|Win32.Build.0 = Debug|Win32
+		{EAF17B59-803F-4B11-9B6F-B735D5E9E69A}.Release|Win32.ActiveCfg = Release|Win32
+		{EAF17B59-803F-4B11-9B6F-B735D5E9E69A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
