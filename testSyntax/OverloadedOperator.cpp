@@ -11,14 +11,16 @@ namespace OverLoadOperator
 		assert(*ppdst); assert(src);
 		if (*ppdst) delete[](*ppdst);
 		int len = strlen(src);
-		*ppdst = new char[len + 1]{};
+		*ppdst = new char[len + 1];
+		memset(ppdst, 0, len+1);
 		strcpy(*ppdst, src);
 	}
 
 
 	Person::Person(const char * psz, int age)
-		: szName(new char[strlen(psz) + 1]{}), strName(psz), Age(age)
+		: szName(new char[strlen(psz) + 1]), strName(psz), Age(age)
 	{
+		memset(szName, 0, strlen(psz)+1);
 		strcpy(szName, psz);
 	}
 

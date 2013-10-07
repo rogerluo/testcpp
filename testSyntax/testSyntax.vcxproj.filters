@@ -27,6 +27,9 @@
     <ClInclude Include="OverloadedOperator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="VirtualFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -36,6 +39,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OverloadedOperator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VirtualFunction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
