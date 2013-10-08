@@ -1,46 +1,37 @@
 #pragma once
-class Top {
-public:
-	Top();
-	virtual ~Top();
-	virtual void speackClearly();
-	virtual Top* clone() const;
-	
-protected:
-	float data_Top;
-};
-
-class Middle1
+#include <iostream>
+using namespace std;
+class B1
 {
 public:
-	Middle1();
-	virtual ~Middle1();
-	virtual void Middl1Own();
-	virtual Middle1* clone() const;
-	virtual Middle1* pure() = 0;
-protected:
-	float data_Middle1;
+	virtual ~B1(){ cout << __FUNCTION__ <<endl; }
+    int x;
+    virtual void v1(){ cout << "B1::v1" << endl; }
+    void f1(){cout << "B1::f1" << endl; }
 };
 
-class Middle2 
+class B2
 {
 public:
-	Middle2();
-	virtual ~Middle2();
-	virtual void Middl2Own();
-	virtual Middle2* clone() const;
-protected:
-	float data_Middle2;
+    int y;
+    virtual void v2(){ cout << "B2::v2" << endl; }
+    void f2(){ cout << "B2::f2" << endl; }
 };
 
-class Diamond1 : public Middle1, public Middle2 {
+class B3
+{
 public:
-	Diamond1();
-	virtual ~Diamond1();
-	virtual Diamond1* clone() const;
-	virtual Diamond1* pure();
-protected:
-	float data_Diamond1;
+    int z;
+    virtual void v3(){ cout << "B3::v3" << endl; }
+    void f3(){ cout << "B3::f3" << endl; }
+};
+
+class D : public B1, public B2, public B3
+{
+public:
+    int a;
+    void v3(){ cout << "D::v3" << endl; }
+    virtual void vD(){ cout << "D::vD" << endl; }
 };
 
 
