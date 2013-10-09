@@ -3,12 +3,15 @@
 
 #include "stdafx.h"
 #include "OverloadedOperator.h"
+#include "VirtualFunction.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	// Test Overloaded Operator 
-	OverLoadOperator::OverloadedOperator overloadOperator;
-	overloadOperator.TestAddressOperator();
+	//OverLoadOperator::OverloadedOperator overloadOperator;
+	//overloadOperator.TestAddressOperator();
+
+	PrintVirutalFucAddr();	
 	return 0;
 }
 

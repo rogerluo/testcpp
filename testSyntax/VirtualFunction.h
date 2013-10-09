@@ -34,4 +34,4 @@ public:
     virtual void vD(){ cout << "D::vD" << endl; }
 };
 
-
+void PrintVirutalFucAddr();
