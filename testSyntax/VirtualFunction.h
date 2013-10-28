@@ -7,10 +7,21 @@ public:
 	B1(int i):x(i){}
 	//~B1(){ cout << __FUNCTION__ <<endl; }
     int x;
+	virtual void g1(){ cout << "B1::g1" << endl; }
+	virtual void g2(){ cout << "B1::g2" << endl; }
+	virtual void g3(){ cout << "B1::g3" << endl; }
     virtual void v1(){ cout << "B1::v1 with " << x << endl; }
 	virtual void v2(){ cout << "B1::v2 with " << x << endl; }
 	virtual void v3(){ cout << "B1::v3 with " << x << endl; }
     //void f1(){cout << "B1::f1 with " << x << endl; }
+};
+
+class D1 : public B1
+{
+public:
+	D1(int i):B1(i){}
+	virtual void g1(){ cout << "D1::g1" << endl; }
+    virtual void v1(){ cout << "D1::v1 with " << x << endl; }
 };
 
 class B2

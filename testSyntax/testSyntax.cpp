@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "OverloadedOperator.h"
 #include "VirtualFunction.h"
+#include "FunctionPoint.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -12,6 +13,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//overloadOperator.TestAddressOperator();
 
 	PrintVirutalFucAddr();	
+	//RunFunctionPoint();
 	return 0;
 }
 

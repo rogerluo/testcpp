@@ -79,12 +79,14 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FunctionPoint.h" />
     <ClInclude Include="OverloadedOperator.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="VirtualFunction.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FunctionPoint.cpp" />
     <ClCompile Include="OverloadedOperator.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
