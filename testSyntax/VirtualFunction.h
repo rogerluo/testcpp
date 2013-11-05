@@ -13,7 +13,6 @@ public:
     virtual void v1(){ cout << "B1::v1 with " << x << endl; }
 	virtual void v2(){ cout << "B1::v2 with " << x << endl; }
 	virtual void v3(){ cout << "B1::v3 with " << x << endl; }
-    //void f1(){cout << "B1::f1 with " << x << endl; }
 };
 
 class D1 : public B1
