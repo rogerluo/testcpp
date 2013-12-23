@@ -62,7 +62,8 @@
       <AdditionalLibraryDirectories>../3rdlib/$(Platform)/lib</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)\3rdlib\$(Platform)\bin\libcurl.dll" "$(OutDir)\libcurl.dll"</Command>
+      <Command>cd "$(ProjectDir)"
+xcopy "$(SolutionDir)\3rdlib\$(Platform)\bin\*.dll" "$(OutDir)" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -84,7 +85,8 @@
       <AdditionalLibraryDirectories>../3rdlib/$(Platform)/lib</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y $(SolutionDir)/3rdlib/$(Platform)/bin/libcurl.dll $(OutDir)/$(Platform)/$(Configuration)/libcurl.dll</Command>
+      <Command>cd "$(ProjectDir)"
+xcopy "$(SolutionDir)\3rdlib\$(Platform)\bin\*.dll" "$(OutDir)" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
