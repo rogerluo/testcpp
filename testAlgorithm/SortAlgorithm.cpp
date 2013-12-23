@@ -26,7 +26,7 @@ void SortAlgorithm::PrepareRandomVector(std::vector<int>& v, int min, int max, i
 	
 	for (int i = 0; i < len; ++i) v.push_back(di(dre));
 
-	for (auto elem : v) std::cout << elem << " ";
+	//for (auto elem : v) std::cout << elem << " ";
 	std::cout << std::endl;
 }
 

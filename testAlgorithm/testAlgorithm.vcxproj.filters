@@ -27,7 +27,10 @@
     <ClInclude Include="SortAlgorithm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="QuickSort.hpp">
+    <ClInclude Include="ISort.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InsertSort.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -39,6 +42,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SortAlgorithm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertSort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
