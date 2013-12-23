@@ -9,16 +9,17 @@ class InsertSort : public ISort<Elem>
 {
 public:
 	virtual void sort(Elem arr[], int length);
+	virtual const char * name() {return "InsertSort";}
 	void show();
 };
 
 template <typename Elem>
-void InsertSort::sort(Elem arr[], int length)
+void InsertSort<Elem>::sort(Elem arr[], int length)
 {
 	assert(arr != NULL && length > 0);
-	for (int i = 1; i < length; i++)
+	for (int i = 1; i < length; ++i)
 	{
-		for (int j = i; j > 0 && compareTo(a[j], a[j - 1]); j--)
-			exch(a[j], a[j - 1]);
+		for (int j = i; j > 0 && less(arr[j], arr[j - 1]); --j)
+			exch(arr, j, j-1);
 	}
 }

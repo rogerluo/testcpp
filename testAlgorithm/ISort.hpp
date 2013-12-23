@@ -1,39 +1,38 @@
 #pragma once
 #include <functional>
+
 template <typename Elem>
 class ISort
 {
 public:
-	ISort(bool asc = true) : _asc(asc){}
+	typedef bool (*Pred)(const Elem&, const Elem&);
+	ISort(bool asc = true) : _asc(asc), _cmp(0), _exch(0){}
 	bool IsAsc() const {return _asc;}
-	void sort(Elem arr[], int length);
+	virtual void sort(Elem arr[], int length) = 0;
 	virtual void exch(Elem arr[], int i, int j);
 	bool compareTo(const Elem& lhs, const Elem& rhs);
-	bool IsSorted(Elem arr[], int length) = 0;
-	virtual void show() = 0;
+	bool less(const Elem& lhs, const Elem& rhs);
+	bool IsSorted(Elem arr[], int length);
+	virtual const char * name() = 0;
+	long long CmpTime() const {return _cmp;}
+	long long ExchTime() const {return _exch;}
+	void Reset() {_cmp = 0; _exch = 0;}
 private:
-	virtual void sort(Elem arr[], int length, bool Pred(const Elem&, const Elem&)) = 0;
 	bool _asc;
+	Pred _pred;
+	long long _cmp;
+	long long _exch;
 };
 
 template <typename Elem>
-void ISort::sort(Elem arr[], int length)
+void ISort<Elem>::exch(Elem arr[], int i, int j)
 {
-	if (IsAsc())
-		sort(arr, length, less);
-	else
-		sort(arr, length, less);
-}
-
-template <typename Elem>
-void ISort::exch(Elem arr[], int i, int j)
-{
+	++_exch;
 	swap(arr[i], arr[j]);
 }
 
-
-template <typename ELem>
-bool ISort::compareTo(const Elem& lhs, const Elem& rhs)
+template <typename T>
+bool ISort<T>::compareTo(const T& lhs, const T& rhs)
 {
 	if (IsAsc())
 		return lhs < rhs;
@@ -42,12 +41,19 @@ bool ISort::compareTo(const Elem& lhs, const Elem& rhs)
 }
 
 template <typename Elem>
-bool ISort::IsSorted(Elem arr[], int length)
+bool ISort<Elem>::IsSorted(Elem arr[], int length)
 {
-	for (int i = 0; i < length; ++i)
+	for (int i = 0; i < length - 1; ++i)
 	{
-		if (!compareTo(arr[i], arr[j]))
+		if (!(arr[i] <= arr[i+1]))
 			return false;
 	}
 	return true;;
+}
+
+template <typename Elem>
+bool ISort<Elem>::less(const Elem& lhs, const Elem& rhs)
+{
+	++_cmp;
+	return lhs < rhs;
 }
