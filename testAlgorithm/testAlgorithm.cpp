@@ -12,55 +12,8 @@
 #include "InsertSort.hpp"
 #include "SelectSort.hpp"
 #include "ShellSort.hpp"
+#include "MergeSort.hpp"
 #include "QuickSort.hpp"
-
-
-void TestIntQuickSort()
-{
-	int v[20] = {};
-	std::default_random_engine dre;
-	std::uniform_int_distribution<int> uid(1, 2000);
-
-#define NUMINVECTOR 2000
-	//std::vector<int> v1, v2;
-	//v1.reserve(NUMINVECTOR);
-	//v2.reserve(NUMINVECTOR);
-	//std::clock_t s1 = 0, s2 = 0, tmp;
-	//for (int i = 2; i <= NUMINVECTOR; ++i)
-	//{
-	//	v1.clear(); v2.clear();
-	//	for (int j = 0; j < i; ++j)
-	//	{
-	//		int tmp = uid(dre);
-	//		v1.push_back(tmp);
-	//		v2.push_back(tmp);
-	//	}
-	//	tmp = std::clock();
-	//	qs(v1, 0, v1.size() - 1);
-	//	s1 += (std::clock() - tmp);
-	//	if (!std::is_sorted(v1.begin(), v1.end())) 
-	//	{
-	//		for (int elem : v1) std::cout<<elem<<" ";
-	//		std::cout<<std::endl;
-	//		std::cout<<"Not sorted"<<std::endl;
-	//		break;
-	//	}
-	//	
-	//	tmp = std::clock();
-	//	std::sort(v2.begin(), v2.end());
-	//	s2 += (std::clock() - tmp);
-	//	if (!std::is_sorted(v2.begin(), v2.end())) 
-	//	{
-	//		for (int elem : v2) std::cout<<elem<<" ";
-	//		std::cout<<std::endl;
-	//		std::cout<<"Not sorted"<<std::endl;
-	//		break;
-	//	}
-
-	//}
-	//std::cout<<"Using "<<s1<<" Miniseconds"<<std::endl;
-	//std::cout<<"Using "<<s2<<" Miniseconds"<<std::endl;
-}
 
 template <typename T>
 void getRandArray(T* arr, int length)
@@ -113,38 +66,57 @@ void Run(ISort<T>* pInst, int t, int n)
 }
 
 template <typename T>
-void Compare(int t, int n)
+void GenerateSort(ISort<T>** pAlg, char * pszAlg)
 {
-	ISort<T> * pInst = NULL;
-	pInst = new QuickSort<T>();
-	Run(pInst, t, n);
-	delete pInst;
-	pInst = new ShellSort<T>();
-	Run(pInst, t, n);
-	delete pInst;
-	//pInst = new InsertSort<T>();
-	//Run(pInst, t, n);
-	//delete pInst;
-	//pInst = new SelectSort<T>();
-	//Run(pInst, t, n);
-	//delete pInst;
+	if (stricmp(pszAlg, SortConstant::SELECTSORT) == 0)
+	{
+		*pAlg = new SelectSort<T>();
+	} 
+	else if (stricmp(pszAlg, SortConstant::INSERTSORT) == 0)
+	{
+		*pAlg = new InsertSort<T>();
+	}
+	else if (stricmp(pszAlg, SortConstant::SHELLSORT) == 0)
+	{
+		*pAlg = new ShellSort<T>();
+	}
+	else if (stricmp(pszAlg, SortConstant::MERGESORT) == 0)
+	{
+		*pAlg = new MergeSort<T>();
+	}
+	else if (stricmp(pszAlg, SortConstant::QUICKSORT) == 0)
+	{
+		*pAlg = new QuickSort<T>();
+	}
 }
+
+template <typename T>
+void Compare(char * pszAlg1, char * pszAlg2, int t, int n)
+{
+	ISort<T> * pAlg1 = NULL, *pAlg2 = NULL;
+	GenerateSort(&pAlg1, pszAlg1);
+	GenerateSort(&pAlg2, pszAlg2);
+	if (pAlg1 == NULL || pAlg2 == NULL) 
+	{
+		cout<<"Failed to generate algorithm as invalid algrithm name."<<endl;
+		return;
+	}
+	Run(pAlg1, t, n);
+	Run(pAlg2, t, n);
+	delete pAlg1;
+	delete pAlg2;
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
-	Compare<int>(100, 100);
-	Compare<int>(100, 1000);
-	Compare<int>(100, 10000);
-	Compare<int>(10, 100000);
-	Compare<int>(10, 1000000);
-	Compare<int>(5, 10000000);
-	cout<<"=========="<<endl;
-	Compare<double>(100, 100);
-	Compare<double>(100, 1000);
-	Compare<double>(100, 10000);
-	Compare<double>(10, 100000);
-	Compare<double>(10, 1000000);
-	Compare<double>(5, 10000000);
-	
+	if (argc != 5)
+	{
+		cout<<"Invalid arguments!"<<endl<<"testAlgorithm.exe alg1 alg2 times length"<<endl;
+		return 1;
+	}
+
+	Compare<double>(argv[1], argv[2], atoi(argv[3]), atoi(argv[4]));
+
 	return 0;
 }
 

@@ -9,7 +9,7 @@ class QuickSort : public ISort<Elem>
 {
 public:
 	virtual void sort(Elem arr[], int length);
-	virtual const char * name() {return "QuickSort";}
+	virtual const char * name() {return SortConstant::QUICKSORT;}
 	void show();
 private:
 	void sort(Elem arr[], int lo, int hi);

@@ -1,6 +1,16 @@
 #pragma once
 #include <functional>
 
+namespace SortConstant
+{
+	extern const char * SELECTSORT;
+	extern const char * INSERTSORT;
+	extern const char * SHELLSORT;
+	extern const char * QUICKSORT;
+	extern const char * MERGESORT;
+	extern const char * MERGEWITHINSERTSORT;
+}
+
 template <typename Elem>
 class ISort
 {

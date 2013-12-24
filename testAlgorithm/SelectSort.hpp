@@ -9,7 +9,7 @@ class SelectSort : public ISort<Elem>
 {
 public:
 	virtual void sort(Elem arr[], int length);
-	virtual const char * name() {return "SelectSort";}
+	virtual const char * name() {return SortConstant::SELECTSORT;}
 	void show();
 };
 

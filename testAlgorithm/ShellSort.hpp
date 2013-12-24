@@ -9,7 +9,7 @@ class ShellSort : public ISort<Elem>
 {
 public:
 	virtual void sort(Elem arr[], int length);
-	virtual const char * name() {return "ShellSort";}
+	virtual const char * name() {return SortConstant::SHELLSORT;}
 	void show();
 };
 
