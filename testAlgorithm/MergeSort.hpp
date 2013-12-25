@@ -1,5 +1,6 @@
 #pragma once
 #include "ISort.hpp"
+#include "Constants.h"
 #include <algorithm>
 #include <cassert>
 using namespace std;
@@ -9,10 +10,12 @@ class MergeSort : public ISort<Elem>
 {
 public:
 	MergeSort():_arr(NULL), _length(0){}
+	virtual ~MergeSort(){ if (_arr) delete[] _arr; _arr = NULL;}
 	virtual void sort(Elem arr[], int length);
 	virtual const char * name() {return SortConstant::MERGESORT;}
-private:
-	void sort(Elem arr[], int lo, int hi);
+	virtual void show(int t);
+protected:
+	virtual void sort(Elem arr[], int lo, int hi);
 	void merge(Elem arr[], int lo, int mid, int hi);
 	Elem* _arr;
 	int _length;
@@ -22,9 +25,18 @@ template <typename Elem>
 void MergeSort<Elem>::sort(Elem arr[], int length)
 {
 	assert(arr != NULL && length > 0);
-	_length = length;
-	_arr = new Elem[_length];
-	sort(arr, 0, length - 1);
+	if (_length < length)
+	{
+		_length = length;
+		if (_arr) 
+		{
+			delete[] _arr;
+			_arr = NULL;
+		}
+		_arr = new Elem[_length];
+	}
+	if (_arr)
+		sort(arr, 0, length - 1);
 }
 
 template <typename Elem>
@@ -50,4 +62,10 @@ void MergeSort<Elem>::merge(Elem arr[], int lo, int mid, int hi)
 		else if (less(_arr[j], _arr[i]))	arr[k] = _arr[j++];
 		else								arr[k] = _arr[i++];
 	}
+}
+
+template <typename Elem>
+void MergeSort<Elem>::show(int t)
+{
+	cout<<name()<<" average using "<< ((long double)_cmp / t) <<" compare, using "<<((long double)_exch / t)<<" exchage"<<endl;
 }

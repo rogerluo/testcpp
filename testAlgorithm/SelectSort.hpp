@@ -1,5 +1,6 @@
 #pragma once
 #include "ISort.hpp"
+#include "Constants.h"
 #include <algorithm>
 #include <cassert>
 using namespace std;
@@ -10,7 +11,7 @@ class SelectSort : public ISort<Elem>
 public:
 	virtual void sort(Elem arr[], int length);
 	virtual const char * name() {return SortConstant::SELECTSORT;}
-	void show();
+	virtual void show(int t);
 };
 
 template <typename Elem>
@@ -24,4 +25,10 @@ void SelectSort<Elem>::sort(Elem arr[], int length)
 			if (less(arr[j], arr[min])) min = j;
 		exch(arr, i, min);
 	}
+}
+
+template <typename Elem>
+void SelectSort<Elem>::show(int t)
+{
+	cout<<name()<<" average using "<< ((long double)_cmp / t) <<" compare, using "<<((long double)_exch / t)<<" exchage"<<endl;
 }

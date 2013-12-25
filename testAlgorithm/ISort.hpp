@@ -1,33 +1,24 @@
 #pragma once
 #include <functional>
-
-namespace SortConstant
-{
-	extern const char * SELECTSORT;
-	extern const char * INSERTSORT;
-	extern const char * SHELLSORT;
-	extern const char * QUICKSORT;
-	extern const char * MERGESORT;
-	extern const char * MERGEWITHINSERTSORT;
-}
-
 template <typename Elem>
 class ISort
 {
 public:
 	typedef bool (*Pred)(const Elem&, const Elem&);
 	ISort(bool asc = true) : _asc(asc), _cmp(0), _exch(0){}
+	virtual ~ISort(){}
 	bool IsAsc() const {return _asc;}
 	virtual void sort(Elem arr[], int length) = 0;
-	virtual void exch(Elem arr[], int i, int j);
+	virtual void show(int t) = 0;
+	virtual const char * name() = 0;
+	void exch(Elem arr[], int i, int j);
 	bool compareTo(const Elem& lhs, const Elem& rhs);
 	bool less(const Elem& lhs, const Elem& rhs);
 	bool IsSorted(Elem arr[], int length);
-	virtual const char * name() = 0;
 	long long CmpTime() const {return _cmp;}
 	long long ExchTime() const {return _exch;}
 	void Reset() {_cmp = 0; _exch = 0;}
-private:
+protected:
 	bool _asc;
 	Pred _pred;
 	long long _cmp;
