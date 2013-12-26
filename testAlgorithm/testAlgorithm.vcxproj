@@ -88,6 +88,7 @@
     <ClInclude Include="MergeSort.hpp" />
     <ClInclude Include="MergeWithInsertSort.hpp" />
     <ClInclude Include="MergeXSort.hpp" />
+    <ClInclude Include="PartionOrderRandGenerator.hpp" />
     <ClInclude Include="QuickSort.hpp" />
     <ClInclude Include="QuickXSort.hpp" />
     <ClInclude Include="SelectSort.hpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="SortAlgorithm.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="UniqueRandGenerator.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ISort.cpp" />

@@ -18,7 +18,12 @@
 #include "MergeWithInsertSort.hpp"
 #include "MergeXSort.hpp"
 #include "QuickSort.hpp"
+#include "QuickXSort.hpp"
 #include "DijkstraSort.hpp"
+
+#include "IRandGenerator.hpp"
+#include "UniqueRandGenerator.hpp"
+#include "PartionOrderRandGenerator.hpp"
 
 template <typename T>
 void getRandArray(T* arr, int length, unsigned int seed)
@@ -29,9 +34,15 @@ void getRandArray(T* arr, int length, unsigned int seed)
 		typeid(T) == typeid(long) ||
 		typeid(T) == typeid(long long))
 	{
-		std::uniform_int_distribution<int> distribution(0, length);
-		for (int i = 0; i < length; ++i)
-			arr[i] = distribution(generator);
+		//std::uniform_int_distribution<int> distribution(0, length);
+		//for (int i = 0; i < length; ++i)
+		//	arr[i] = distribution(generator);
+
+		//UniqueRandGenerator<T> urg;
+		//urg.getRandArray(arr, length, seed);
+		
+		PartionOrderRandGenerator<T> pog;
+		pog.getRandArray(arr, length, seed);
 	}
 	else if(typeid(T) == typeid(float) ||
 			typeid(T) == typeid(double) ||
@@ -62,9 +73,10 @@ void Run(ISort<T>* pInst1, ISort<T>* pInst2, int t, int n)
 	T * arr = new T[n];
 	for (int i = 0; i < t; ++i)
 	{
-		clock_t ct = clock();
-		tot1 += RunSingle(pInst1, arr, n, ct);
-		tot2 += RunSingle(pInst2, arr, n, ct);
+		//clock_t ct = clock();
+		unsigned int seed = chrono::system_clock::now().time_since_epoch().count();
+		tot1 += RunSingle(pInst1, arr, n, seed);
+		tot2 += RunSingle(pInst2, arr, n, seed);
 	}
 	delete[] arr;
 	cout<<pInst1->name()<<" average using "<< ((double)tot1 / t) <<" miniseconds to sort "<<n<<" number"<<endl;
@@ -118,6 +130,14 @@ void GenerateSort(ISort<T>** pAlg, char * pszAlg)
 	else if (stricmp(pszAlg, SortConstant::QUICKSORT) == 0)
 	{
 		*pAlg = new QuickSort<T>();
+	}
+	else if (stricmp(pszAlg, SortConstant::QUICKXSORT) == 0)
+	{
+		int sublen = 0;
+		cout<<"Please set the length for sub array:";
+		cin>>sublen;
+		*pAlg = sublen == 0 ? new QuickXSort<T>() : 
+			new QuickXSort<T>(sublen);
 	}
 	else if (stricmp(pszAlg, SortConstant::DIJKSTRASORT) == 0)
 	{
