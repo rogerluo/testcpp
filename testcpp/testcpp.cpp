@@ -1,118 +1,150 @@
-// testcpp.cpp : Defines the entry point for the console application.
-//
-
 #include "stdafx.h"
 #include <iostream>
-#include <new>
+#include <cstring>
+#include <cstdio>
 #include <cstdlib>
+#include <stack>
+
 using namespace std;
-#define SHOW_FUNC std::cout<<__FUNCSIG__<<std::endl;
 
-void noMoreMemory()
-{
-	cerr << "Unable to satisfy request for memory\n";
-	abort();
+char* calculateOperationSequence(int *originalArray, int *resultArray, int length);
+
+inline bool isSpace(char x){
+    return x == ' ' || x == '\r' || x == '\n' || x == '\r' || x == '\b' || x == '\t';
 }
 
-class X
-{
-public:
-	static new_handler set_new_handler(new_handler p);
-	 void * operator new(size_t s);
-private:
-	static new_handler _cur;
-	int _i[500000000];
-};
-new_handler X::_cur;// 0 or NULL by default
-new_handler X::set_new_handler(new_handler p)
-{
-	SHOW_FUNC
-	new_handler old = _cur;
-	_cur = p;
-	return old;
-}
-namespace Other
-{
-	void * operator new (size_t s)
-	{
-		void *p;
-		try
-		{
-			p = ::operator new(s);
-		}catch (::bad_alloc&){
-			throw;
-		}
-		return p;
-	}
-}
-void* X::operator new(size_t s)
-{
-	new_handler glob = ::set_new_handler(_cur);// register X::NoMoreMemory
-	void * p = NULL;
-	try
-	{
-		p = Other::operator new(s);
-	}
-	catch(std::bad_alloc&)
-	{
-		::set_new_handler(glob);
-		throw;
-	}
-	::set_new_handler(glob);
-	return p;
+char * rightTrim(char *str){
+    int len = strlen(str);
+    while(--len>=0){
+        if(isSpace(str[len])){
+            str[len] = '\0';
+        }else{
+            break;
+        }
+    }
+    return str;
 }
 
-class Base
+char * getInputLine(char *buffer, int length){
+    if(fgets(buffer,length, stdin)==NULL){
+        return NULL;
+    }
+    rightTrim(buffer);
+    if(strlen(buffer)<=0){
+        return NULL;
+    }
+    return buffer;
+}
+
+int splitAndConvert(char* strings,int *array){
+    char*tokenPtr = strtok(strings,",");
+    int i=0;
+    while(tokenPtr!=NULL){
+        array[i] = atoi(tokenPtr);
+        i++;
+        tokenPtr=strtok(NULL,",");
+    }
+    return i;
+}
+
+int main(){
+    char line[1000] = {0} ;
+    while(getInputLine(line,1000)){
+        int originalArray[30] = {0};
+        int originalArrayLength = splitAndConvert(line,originalArray);
+        if(originalArrayLength==0){
+            break;
+        }
+        
+    getInputLine(line, 1000);
+    int resultArray[30] = {0};
+        int resultArrayLength = splitAndConvert(line,resultArray);
+        if(resultArrayLength==0){
+            break;
+        }
+        char *operationSequence = calculateOperationSequence(originalArray, resultArray, resultArrayLength);
+
+    if (NULL != operationSequence)
+    {   // 原来系统提供的代码。这里没有NULL判断
+        cout<< operationSequence <<endl;
+        free(operationSequence); // 自己加的
+    }
+    else
+     cout<< "None" <<endl; // 自己加的
+    }
+    return 0; 
+} 
+
+//your code is here  
+//下面才是让写代码的地方，其他的系统已经自动给出。主函数，只有一点点修改。
+char* calculateOperationSequence(int * originalArray, int * resultArray, int length)
 {
-public:
-	virtual void foo(int i = 1){		//{2}
-		SHOW_FUNC
-		cout<<i<<endl;
-	}
-	virtual ~Base(){
-		SHOW_FUNC
-	}
-};
-class Derived : public Base
-{
-public:
-	~Derived(){
-		SHOW_FUNC
-	}
-	virtual void foo(int i = 2){		//{3}
-		SHOW_FUNC
-		cout<<i<<endl;
-	}
-	virtual void foo(double d){		//{4}
-		SHOW_FUNC;
-	}
-};
+    if (NULL == originalArray || NULL == resultArray || length <= 0)
+        return NULL;
+    //使用一个栈模拟入栈和出栈操作就ok了。
+    string str;
+    stack<int> st;
+    int i = 0;
+    int j = 0;
+    st.push(originalArray[i]);
 
 
-int main()
-{
-	Base *pb = new Derived;
-	pb->foo();
-	Derived *pd = dynamic_cast<Derived*>(pb);
-	pd->foo();
-	delete pb;
-	//char mm[sizeof(int)] = {1, 0, 0, 0};
-	//XX* p = new((void*)mm) XX;
-	//p->foo();
+    char tmp[5] = "\0";
+    str.append("push");
+    sprintf(tmp, "%d", originalArray[i]);
+    str.append(tmp);
+    str.append("|");
 
-	/*X::set_new_handler(noMoreMemory);
-	X * p = new X;
-	try
-	{
-		X *p = new X;
-	}
-	catch (bad_alloc& ba)
-	{
-		cout<<"bad allock"<<endl;
-	}
-	catch (...)
-	{
-		cout<<"any error"<<endl;
-	}*/
-	return 0;
+    i++;
+
+    while (!st.empty())
+    {
+        if (j < length && st.top() == resultArray[j])
+        {
+            str.append("pop");
+            sprintf(tmp, "%d", resultArray[j]);
+            str.append(tmp);
+            str.append("|");
+            st.pop();
+            j++;
+            
+            if (i < length)
+            {
+                st.push(originalArray[i]);
+                str.append("push");
+                sprintf(tmp, "%d", originalArray[i]);
+                str.append(tmp);
+                str.append("|");
+                i++;
+            }
+        }
+        else
+        {
+            if (i < length)
+            {
+                st.push(originalArray[i]);
+                str.append("push");
+                sprintf(tmp, "%d", originalArray[i]);
+                str.append(tmp);
+                str.append("|");
+                i++;
+            }
+            else
+                break;
+        }
+    }
+
+
+    if (!st.empty())
+        return NULL;
+
+    char *p = (char *)malloc(1 + str.length());
+    if (NULL != p)
+    {
+        strcpy(p, str.c_str());
+        p[str.length() - 1] = '\0';
+        return p;
+    }
+
+    return NULL;
 }
