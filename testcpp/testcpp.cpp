@@ -1,8 +1,10 @@
 #include "stdafx.h"
 #include "gtest\gtest.h"
 #include "AmazonUT.hpp"
+#include "StringOpUT.hpp"
 #include <iostream>
 using namespace std;
+using namespace StringOpUT;
 #if defined _DEBUG || defined DEBUG
 #pragma comment (lib, "gtestd.lib")
 #else

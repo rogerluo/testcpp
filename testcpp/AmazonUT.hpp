@@ -1,84 +1,84 @@
 #pragma once
 #include "gtest\gtest.h"
 #include "Amazon.hpp"
-//
-//TEST(StackTest, InLenghtEqOutLength)
-//{
-//	char in1[] = {"1,2,3,4"}, out1[] = {"4,3,2,1"};
-//	char * ret1 = Amazon::RunUT2(in1, out1);
-//	EXPECT_STREQ("push1|push2|push3|push4|pop4|pop3|pop2|pop1", ret1);
-//	free(ret1);
-//
-//	char in2[] = {"1,2,3,4"}, out2[] = {"1,2,3,4"};
-//	char * ret2 = Amazon::RunUT2(in2, out2);
-//	EXPECT_STREQ("push1|pop1|push2|pop2|push3|pop3|push4|pop4", ret2);
-//	free(ret2);	
-//}
-//
-//TEST(StackTest, InLenghtGtOutLength)
-//{
-//	{
-//		char in[] = {"1,2,3,4,5,6"}, out[] = {"1,2,3,4"};
-//		char * ret = Amazon::RunUT2(in, out);
-//		EXPECT_STREQ("push1|pop1|push2|pop2|push3|pop3|push4|pop4|push5|push6", ret);
-//		free(ret);
-//	}
-//
-//	{
-//		char in[] = {"1,2,3,4,5,6"}, out[] = {"4,3,2,1"};
-//		char * ret = Amazon::RunUT2(in, out);
-//		EXPECT_STREQ("push1|push2|push3|push4|pop4|pop3|pop2|pop1|push5|push6", ret);
-//		free(ret);
-//	}
-//
-//	{
-//		char in[] = {"1,2,3,4,5,6"}, out[] = {"3,4,2,1"};
-//		char * ret = Amazon::RunUT2(in, out);
-//		EXPECT_STREQ("push1|push2|push3|pop3|push4|pop4|pop2|pop1|push5|push6", ret);
-//		free(ret);
-//	}
-//}
-//
-//TEST(StackTest, InLenghtLtOutLength)
-//{
-//	{
-//		char in[] = {"1,2,3,4"}, out[] = {"1,2,3,4,1,2"};
-//		char * ret = Amazon::RunUT2(in, out);
-//		EXPECT_STREQ(NULL, ret);
-//		free(ret);
-//	}
-//
-//	{
-//		char in[] = {"1,2,3,4"}, out[] = {"4,3,2,1,4,3"};
-//		char * ret = Amazon::RunUT2(in, out);
-//		EXPECT_STREQ(NULL, ret);
-//		free(ret);
-//	}
-//}
-//
-//TEST(StackTest, InMult)
-//{
-//	{
-//		char in[] = {"1,1,2,3,4"}, out[] = {"1,2,3,4"};
-//		char * ret = Amazon::RunUT2(in, out);
-//		EXPECT_STREQ("push1|pop1|push1|push2|pop2|push3|pop3|push4|pop4", ret);
-//		free(ret);
-//	}
-//	
-//	{
-//		char in[] = {"1,1,3,2,3,4"}, out[] = {"1,2,3,4"};
-//		char * ret = Amazon::RunUT2(in, out);
-//		EXPECT_STREQ("push1|pop1|push1|push3|push2|pop2|pop3|push3|push4|pop4", ret);
-//		free(ret);
-//	}
-//
-//	{
-//		char in[] = {"1,1,2,1,3,1"}, out[] = {"1,3,1,2,1,1"};
-//		char * ret = Amazon::RunUT2(in, out);
-//		EXPECT_STREQ("push1|pop1|push1|push2|push1|push3|pop3|pop1|pop2|pop1|push1|pop1", ret);
-//		free(ret);
-//	}
-//}
+
+TEST(StackTest, InLenghtEqOutLength)
+{
+	char in1[] = {"1,2,3,4"}, out1[] = {"4,3,2,1"};
+	char * ret1 = Amazon::RunUT2(in1, out1);
+	EXPECT_STREQ("push1|push2|push3|push4|pop4|pop3|pop2|pop1", ret1);
+	free(ret1);
+
+	char in2[] = {"1,2,3,4"}, out2[] = {"1,2,3,4"};
+	char * ret2 = Amazon::RunUT2(in2, out2);
+	EXPECT_STREQ("push1|pop1|push2|pop2|push3|pop3|push4|pop4", ret2);
+	free(ret2);	
+}
+
+TEST(StackTest, InLenghtGtOutLength)
+{
+	{
+		char in[] = {"1,2,3,4,5,6"}, out[] = {"1,2,3,4"};
+		char * ret = Amazon::RunUT2(in, out);
+		EXPECT_STREQ("push1|pop1|push2|pop2|push3|pop3|push4|pop4|push5|push6", ret);
+		free(ret);
+	}
+
+	{
+		char in[] = {"1,2,3,4,5,6"}, out[] = {"4,3,2,1"};
+		char * ret = Amazon::RunUT2(in, out);
+		EXPECT_STREQ("push1|push2|push3|push4|pop4|pop3|pop2|pop1|push5|push6", ret);
+		free(ret);
+	}
+
+	{
+		char in[] = {"1,2,3,4,5,6"}, out[] = {"3,4,2,1"};
+		char * ret = Amazon::RunUT2(in, out);
+		EXPECT_STREQ("push1|push2|push3|pop3|push4|pop4|pop2|pop1|push5|push6", ret);
+		free(ret);
+	}
+}
+
+TEST(StackTest, InLenghtLtOutLength)
+{
+	{
+		char in[] = {"1,2,3,4"}, out[] = {"1,2,3,4,1,2"};
+		char * ret = Amazon::RunUT2(in, out);
+		EXPECT_STREQ(NULL, ret);
+		free(ret);
+	}
+
+	{
+		char in[] = {"1,2,3,4"}, out[] = {"4,3,2,1,4,3"};
+		char * ret = Amazon::RunUT2(in, out);
+		EXPECT_STREQ(NULL, ret);
+		free(ret);
+	}
+}
+
+TEST(StackTest, InMult)
+{
+	{
+		char in[] = {"1,1,2,3,4"}, out[] = {"1,2,3,4"};
+		char * ret = Amazon::RunUT2(in, out);
+		EXPECT_STREQ("push1|pop1|push1|push2|pop2|push3|pop3|push4|pop4", ret);
+		free(ret);
+	}
+	
+	{
+		char in[] = {"1,1,3,2,3,4"}, out[] = {"1,2,3,4"};
+		char * ret = Amazon::RunUT2(in, out);
+		EXPECT_STREQ("push1|pop1|push1|push3|push2|pop2|pop3|push3|push4|pop4", ret);
+		free(ret);
+	}
+
+	{
+		char in[] = {"1,1,2,1,3,1"}, out[] = {"1,3,1,2,1,1"};
+		char * ret = Amazon::RunUT2(in, out);
+		EXPECT_STREQ("push1|pop1|push1|push2|push1|push3|pop3|pop1|pop2|pop1|push1|pop1", ret);
+		free(ret);
+	}
+}
 
 TEST(DifferTest, DifferTestNormal)
 {
