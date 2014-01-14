@@ -1,6 +1,8 @@
 #pragma once
 #include "gtest\gtest.h"
 #include "Amazon.hpp"
+#include <random>
+using namespace std;
 
 TEST(StackTest, InLenghtEqOutLength)
 {
@@ -154,5 +156,25 @@ TEST(MMChessTest, MMChessTest1)
 		int m[] = {1,2,1};
 		vector<int> Mnumbers(m, m+ sizeof(m)/sizeof(int));
 		EXPECT_EQ(6, Amazon::MMchess(Nscores, Mnumbers));
+	}
+}
+
+TEST(GetMaxLineTest, GetMaxLineNormal)
+{
+	{
+		int v[5][5] = {0};
+		std::srand(time(NULL));
+		cout<<"random chess board:"<<endl;
+		for (int i = 0; i < 5; i++)
+		{
+			for (int j = 0; j < 5; j++)
+			{
+				v[i][j] = std::rand() % 3;
+				cout<<v[i][j]<<" ";
+			}
+			cout<<endl;
+		}
+		int val = Amazon::GetMaxLine(v, 5, 5);
+		cout<<"the max value in line is:"<<val<<endl;
 	}
 }
