@@ -161,20 +161,30 @@ TEST(MMChessTest, MMChessTest1)
 
 TEST(GetMaxLineTest, GetMaxLineNormal)
 {
+	for (int t = 0; t < N; t++)
 	{
-		int v[5][5] = {0};
-		std::srand(time(NULL));
-		cout<<"random chess board:"<<endl;
-		for (int i = 0; i < 5; i++)
+		int v[N][N] = {0};
+		std::srand(clock());
+		cout<<"random chess board size:"<<N<<endl;
+		for (int i = 0; i < N; i++)
 		{
 			for (int j = 0; j < 5; j++)
 			{
-				v[i][j] = std::rand() % 3;
+				v[i][j] = std::rand() % M;
 				cout<<v[i][j]<<" ";
 			}
 			cout<<endl;
 		}
-		int val = Amazon::GetMaxLine(v, 5, 5);
-		cout<<"the max value in line is:"<<val<<endl;
+		cout<<"============"<<endl;
+		Amazon::ShowMajorDialog(v);
+		cout<<"============"<<endl;
+		Amazon::ShowViceDialog(v);
+		//vector<int> maxs;
+		//int val = Amazon::GetMaxLine(v, maxs);
+		//cout<<"the max value "<<val<<" in line is:";
+		//for (int pos = 0; pos < maxs.size(); pos++)
+		//	cout<<maxs[pos]<<", ";
+		//cout<<endl;
+		_sleep(10);
 	}
 }
