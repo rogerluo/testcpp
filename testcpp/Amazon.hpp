@@ -253,9 +253,9 @@ namespace Amazon
 		split(const_cast<char*>(string1.data()), v1);
 		split(const_cast<char*>(string2.data()), v2);
 		typedef set<string>::iterator myit;
-		myit fst1 = v1.begin(), lst1 = v1.end();
-		myit fst2 = v2.begin(), lst2 = v2.end();
-		for (; fst1 != lst1 && fst2 != lst2; )
+		myit fst1 = v1.begin(), _lst1 = v1.end();
+		myit fst2 = v2.begin(), _lst2 = v2.end();
+		for (; fst1 != _lst1 && fst2 != _lst2; )
 		{ 
 			int ret = fst1->compare(*fst2);
 			if (0 == ret)
@@ -297,17 +297,17 @@ namespace Amazon
 		return max;
 	}
 
-#define N 5
-#define M 3
+#define N 9
+#define M 4
 	void ShowViceDialog(int v[][N])
 	{
 		int m = N, n = N;
-		for(int d=0;d<m+n-1;d++)           //表示第d条次对角线
+		for(int d=0;d<m+n-1;d++)           
 		{
-			for(int i=0;i<=d;i++)          //行标
+			for(int i=0;i<=d;i++)         
 			{
-				int j = d - i;              //列标
-				if(i<m&&j<n)            //用于下三角，去除多余的
+				int j = d - i;             
+				if(i<m&&j<n)            
 					cout<<v[i][j]<<" ";
 			}
 			cout<<endl;
@@ -316,7 +316,17 @@ namespace Amazon
 	void ShowMajorDialog(int v[][N])
 	{
 		int m = N, n = N;
-		for(int d=-m+1;d<n;d++)           //因为这里只有n条主对角线，即列数
+		for (int d = m-1; d > 0; d--)
+		{
+			for (int j = 0; j < n - d; j++)
+			{
+				int i = j + d;
+				cout<<v[i][j]<<" ";
+			}
+			cout<<endl;
+		}
+		m = M; n = N;
+		for(int d=0;d<n;d++)           //因为这里只有n条主对角线，即列数
 		{
 			for(int i=0;i<n-d;i++)    //因为i = j - d,而j< n
 			{
@@ -325,6 +335,65 @@ namespace Amazon
 			}
 			cout<<endl;
 		}
+	}
+
+	int GetMaxDialog(int v[][N], int color)
+	{
+		int m = N, n = N, sum = 0, max = 0;
+
+		for (int d = m-1; d > 0; d--)
+		{
+			sum = 0;
+			for (int j = 0; j < n - d; j++)
+			{
+				int i = j + d;
+				if (v[i][j] == color) sum++;
+				else {
+					if (sum > max) max = sum;
+					if (sum > n - d) break;
+					sum = 0;
+				}
+			}
+		}
+		m = M; n = N;
+		for(int d=0;d<n;d++)           //因为这里只有n条主对角线，即列数
+		{
+			sum = 0;
+			for(int i=0;i<n-d;i++)    //因为i = j - d,而j< n
+			{
+				int j = i + d;
+				if (v[i][j] == color) sum++;     
+				else
+				{
+					if (sum > max) max = sum;
+					if (sum > n -d ) break;
+					sum = 0;
+				}
+			}
+		}
+		return max;
+	}
+
+	int GetMaxDialogT(int v[][N], int color)
+	{
+		int m = N, n = N, sum = 0, max = 0;
+		for(int d=0;d<m+n-1;d++)           //表示第d条次对角线
+		{
+			sum = 0;
+			for(int i=0;i<=d;i++)          //行标
+			{
+				int j = d - i;              //列标
+				if(i<m&&j<n)            //用于下三角，去除多余的
+				{
+					if (v[i][j] == color) sum++;
+					else {
+						if (sum > max) max = sum;
+						sum = 0;
+					}
+				}
+			}
+		}
+		return max;
 	}
 
 	int GetMaxLine(int v[][N], vector<int>& maxs)
@@ -376,79 +445,13 @@ namespace Amazon
 				cur++;
 				continue;
 			}
-			for (int j = 0; j < N; j++)
-			{
-				sum = 0;
-				for (int m = 0, n = j; m < N && n < N; m++, n++)
-				{
-					if (cur == v[m][n]) sum++;
-					else
-					{
-						if (sum > max) max = sum;
-						if (sum >= N / 2) break;
-						sum = 0;
-					}
-				}
-				if (sum > max) max = sum;
-				if (sum >= N - j) break;
-			}
-			if (max == N) 
-			{
-				ret[cur] = max;
-				cur++;
-				continue;
-			}
-			for (int i = 0; i < N; i++)
-			{
-				sum = 0;
-				for (int m = i, n = 0; m < N && n < N; m++, n++)
-				{
-					if (cur == v[m][n]) sum++;
-					else
-					{
-						if (sum > max) max = sum;
-						if (sum >= N / 2) break;
-						sum = 0;
-					}
-				}
-				if (sum > max) max = sum;
-				if (sum >= N - i) break;
-			}
-			if (max == N) 
-			{
-				ret[cur] = max;
-				cur++;
-				continue;
-			}
-			for (int i = 0; i < N; i++)
-			{
-				for (int j = N - 1 - i; j >= 0; j--)
-				{
-					sum = 0;
-					for (int m = 0, n = j; m < N && n >= 0; m++, n--)
-					{
-						if (cur == v[m][n]) sum++;
-						else
-						{
-							if (sum > max) max = sum;
-							if (sum >= N / 2) break;
-							sum = 0;
-						}
-					}
-					if (sum > max) max = sum;
-					if (sum >= N - j) break;
-				}
-			}
-			if (max == N) 
-			{
-				ret[cur] = max;
-				cur++;
-				continue;
-			}
-			for (int i = 1; i < N; i++)
-			{
-				
-			}
+			
+			int temp = GetMaxDialog(v, cur);
+			if (temp > max) max = temp;
+
+			temp = GetMaxDialogT(v, cur);
+			if (temp > max) max = temp;
+
 			ret[cur] = max;
 			cur++;
 		}

@@ -168,23 +168,19 @@ TEST(GetMaxLineTest, GetMaxLineNormal)
 		cout<<"random chess board size:"<<N<<endl;
 		for (int i = 0; i < N; i++)
 		{
-			for (int j = 0; j < 5; j++)
+			for (int j = 0; j < N; j++)
 			{
 				v[i][j] = std::rand() % M;
 				cout<<v[i][j]<<" ";
 			}
 			cout<<endl;
 		}
-		cout<<"============"<<endl;
-		Amazon::ShowMajorDialog(v);
-		cout<<"============"<<endl;
-		Amazon::ShowViceDialog(v);
-		//vector<int> maxs;
-		//int val = Amazon::GetMaxLine(v, maxs);
-		//cout<<"the max value "<<val<<" in line is:";
-		//for (int pos = 0; pos < maxs.size(); pos++)
-		//	cout<<maxs[pos]<<", ";
-		//cout<<endl;
+		vector<int> maxs;
+		int val = Amazon::GetMaxLine(v, maxs);
+		cout<<"the max value "<<val<<" in line is:";
+		for (int pos = 0; pos < maxs.size(); pos++)
+			cout<<maxs[pos]<<", ";
+		cout<<endl;
 		_sleep(10);
 	}
 }
